@@ -12,4 +12,4 @@ class Users(models.Model):
         return self.email
 
     class Meta:
-        db_table = 'users'
+        db_table = 'Users'

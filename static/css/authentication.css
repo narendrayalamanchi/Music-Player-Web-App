@@ -1,3 +1,74 @@
 .login_form .login_button, .signup_form .signup_button{
     background-color: #8686b3;
 }
+
+.song-list {
+    list-style-type: none;
+    padding: 0;
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.song-item {
+    margin: 15px;
+    position: relative;
+    width: 200px;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background-color: #fff;
+}
+.song-item img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+}
+.play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.play-button:hover {
+
+    background-color: rgba(0, 0, 0, 0.7);
+}
+.play-button:before {
+    content: '\25B6'; /* Unicode for play icon */
+    color: white;
+    font-size: 24px;
+}
+.play-button.pause:before {
+    content: '\23F8'; /* Change to pause icon */
+}
+ .song-details {
+    padding: 10px;
+}
+.song-title {
+    font-weight: bold;
+    margin: 5px 0;
+}
+.album-name {
+    color: #666;
+    font-size: 0.9em;
+}
+
+#audioPlayer{
+    width: -webkit-fill-available;
+   // position: absolute;
+    //bottom: 20px;
+}

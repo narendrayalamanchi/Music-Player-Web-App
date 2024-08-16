@@ -1,8 +1,17 @@
 from django.shortcuts import render,redirect
 from .models import Users
 from .forms import SignupForm,LoginForm
+from django.contrib.auth import logout
+from music_dashboard.models import Song
 
 # Create your views here.
+def index(request):
+    return render(request,'music_dashboard/index.html')
+
+def signout(request):
+    logout(request)
+    return render(request,'music_dashboard/index.html')
+                  
 def signup(request):
     response = {"success":True}
     if request.method == 'POST':
@@ -30,7 +39,9 @@ def login(request):
             email = form.cleaned_data.get('email')
             password = form.cleaned_data.get('password')
             users = Users.objects.filter(email=email, password = password)
-            if users.exists:
+            if users.exists():
+                request.session["is_logged"] = True
+                request.session["username"] = users[0].username
                 return redirect('home')
             else:
                 response["message"] = "Invalid Credentials/No User Found"
@@ -40,3 +51,7 @@ def login(request):
         response["form"] = form
 
     return render(request,'authentication/login.html', response)
+
+def home(request):
+    res = Song.objects.all()
+    return render(request,'music_dashboard/home.html',{"result":res})
