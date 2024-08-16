@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %} MusicApp | {{ title }} {% endblock title %}
+{% block body %}
+
+<div class="container">
+    <h1>Songs List</h1>
+
+    {% for data in result %}
+        <ul class="song-list">
+              <li>
+                  <div class="song-item" onclick="playSong(this, '{{MEDIA_URL}}{{data.language}}/songs/{{data.song_file}}')">
+                    <img src="{{MEDIA_URL}}{{data.language}}/thumbnails/{{data.song_thumbnail}}" alt="Song Thumbnail">
+                    <div class="play-button"></div>
+                  </div>
+                  <div class="song-details">
+                     <div class="song-title">{{data.name}}</div>
+                     <div class="song-artist">{{data.album}}</div>
+                     <div class="song-artist">{{data.singer}}</div>
+                </div>
+              </li>
+        </ul>
+    {% endfor %}
+
+     <audio id="audioPlayer" controls style="display:none;"></audio>
+</div>
+
+<script>
+    function playSong(button, file) {
+        var audioPlayer = document.getElementById('audioPlayer');
+        audioPlayer.src = file;
+        audioPlayer.style.display = 'block'; // Show controls when playing
+        var playButton = button.querySelector('.play-button');
+
+        if (audioPlayer.paused) {
+            audioPlayer.play();
+            playButton.classList.add('pause');
+        } else {
+            audioPlayer.pause();
+            playButton.classList.remove('pause');
+        }
+    }
+</script>
+
+{% endblock body %}
