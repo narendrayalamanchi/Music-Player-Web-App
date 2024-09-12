@@ -3,6 +3,8 @@ from .models import Users
 from .forms import SignupForm,LoginForm
 from django.contrib.auth import logout
 from music_dashboard.models import Song
+from collections import defaultdict
+from django.conf import settings
 
 # Create your views here.
 def index(request):
@@ -53,5 +55,9 @@ def login(request):
     return render(request,'authentication/login.html', response)
 
 def home(request):
-    res = Song.objects.all()
-    return render(request,'music_dashboard/home.html',{"result":res})
+    all_songs = Song.objects.all()
+    songs_by_language = defaultdict(list)
+    for song in all_songs:
+        songs_by_language[song.language].append(song)
+ 
+    return render(request,'music_dashboard/home.html',{"songs_by_language":dict(songs_by_language),"path":settings.MUSIC_S3_URL})

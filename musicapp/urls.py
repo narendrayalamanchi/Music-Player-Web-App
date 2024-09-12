@@ -17,8 +17,11 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from adminapp import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('extract_thumbnail_from_song/<str:language>', views.extract_thumbnail_from_song),
+    path('addsongs/<str:language>', views.add_songs),
     path('', include("authentication.urls"))
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] 

@@ -5,27 +5,42 @@
 
 <div class="container">
     <h1>Songs List</h1>
+   
 
-    {% for data in result %}
-        <ul class="song-list">
-              <li>
-                  <div class="song-item" onclick="playSong(this, '{{MEDIA_URL}}{{data.language}}/songs/{{data.song_file}}')">
-                    <img src="{{MEDIA_URL}}{{data.language}}/thumbnails/{{data.song_thumbnail}}" alt="Song Thumbnail">
-                    <div class="play-button"></div>
-                  </div>
-                  <div class="song-details">
-                     <div class="song-title">{{data.name}}</div>
-                     <div class="song-artist">{{data.album}}</div>
-                     <div class="song-artist">{{data.singer}}</div>
-                </div>
-              </li>
-        </ul>
+    {% for language, songs in songs_by_language.items %}
+    <div class="language-section">
+        <h4>{{ language }} Songs</h4>
+        <div class="scroll-container">
+            <button class="scroll-left" onclick="scrollLeftside('{{ language }}')">&#8249;</button>
+            <div class="scroll-content" id="scroll-content-{{ language }}">
+                <ul class="song-list">
+                    {% for song in songs %}
+                    <li>
+                        <div class="song-item" onclick="playSong(this, '{{path}}/{{song.song_file}}')">
+                            <img src="{{path}}/{{song.song_thumbnail}}" alt="Song Thumbnail">
+                            <div class="play-button"></div>
+                        </div>
+                        <div class="song-details">
+                            <div class="song-title">{{ song.name }}</div>
+                            <div class="song-artist">{{ song.album }}</div>
+                            <div class="song-artist">{{ song.singer }}</div>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <button class="scroll-right" onclick="scrollRight('{{ language }}')">&#8250;</button>
+        </div>
+    </div>
+    
     {% endfor %}
-
+        
      <audio id="audioPlayer" controls style="display:none;"></audio>
 </div>
 
 <script>
+    
+    
     function playSong(button, file) {
         var audioPlayer = document.getElementById('audioPlayer');
         audioPlayer.src = file;
@@ -40,6 +55,23 @@
             playButton.classList.remove('pause');
         }
     }
+
+
+    function scrollLeftside(language) {
+        const scrollContent = document.getElementById(`scroll-content-${language}`);
+        scrollContent.scrollBy({
+            left: -150, // Adjust scroll distance
+            behavior: 'smooth'
+        });
+    }
+    
+    function scrollRight(language) {
+        const scrollContent = document.getElementById(`scroll-content-${language}`);
+        scrollContent.scrollBy({
+            left: 150, // Adjust scroll distance
+            behavior: 'smooth'
+        });
+    }   
 </script>
 
 {% endblock body %}

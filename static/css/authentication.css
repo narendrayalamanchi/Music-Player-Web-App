@@ -2,26 +2,66 @@
     background-color: #8686b3;
 }
 
+.language-section {
+    margin: 20px 0;
+}
+
+.scroll-container {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    .scroll-content::-webkit-scrollbar {
+        display: none;
+      }
+}
+
+.scroll-content {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    width: calc(100% - 80px); /* Account for button space */
+    margin: 50px;
+    white-space: nowrap;
+}
+
 .song-list {
     list-style-type: none;
     padding: 0;
-    display: inline-flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    display: flex; /* Use flexbox to align items horizontally */
 }
+
 .song-item {
     margin: 15px;
     position: relative;
     width: 200px;
     overflow: hidden;
     border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     background-color: #fff;
+    display: inline-block;
+    vertical-align: top;
 }
+
+.scroll-left, .scroll-right {
+    background-color: #c1bfbf;
+    color: white;
+    border: none;
+    width: 25px;
+    height: 45px;
+    cursor: pointer;
+}   
+
+.scroll-left {
+    position: absolute;
+    left: 0;
+}
+
+.scroll-right {
+    position: absolute;
+    right: 0;
+}
+
 .song-item img {
     width: 100%;
     height: 200px;
@@ -69,6 +109,6 @@
 
 #audioPlayer{
     width: -webkit-fill-available;
-   // position: absolute;
-    //bottom: 20px;
+    position: fixed;
+    bottom: 20px; 
 }
